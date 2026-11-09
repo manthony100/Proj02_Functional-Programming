@@ -1,7 +1,18 @@
+use std::ptr::null;
+
 fn main() {
     println!("Hello, world!");
     let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-    println!("{:?}", everyother(numbers, 1))
+    let numbers2 = vec![1, 2, 3, 4];
+    let numbers3 = vec![1];
+    let numbers4 = vec![0; 5];
+
+
+    println!("{:?}", everyother(numbers, 1));
+    println!("{:?}", everyother(numbers2, 1));
+    println!("{:?}", everyother(numbers3, 1));
+    println!("{:?}", everyother(numbers4, 1));
+
 }
 // Im typing out all parts of the project even if the code for the scheme is not in vscode.
 // Just so I can keep track of what I have done and what I need to do.
@@ -27,6 +38,14 @@ fn everyother(list1: Vec<i32>, mut list_index : usize) -> Vec<i32> {
     //     // set index to 1
     //     list_index = 1;
     // }
+    if list1.is_empty(){
+        println!("Error: the input list is empty");
+        return resultlist;
+    }
+    if list1.len() == 1{
+        print!("The list is the same because there is only one element.");
+        return  list1;
+    }
     if list_index < list1.len(){
         resultlist.push(list1[list_index]);
         list_index += 2;
@@ -35,7 +54,6 @@ fn everyother(list1: Vec<i32>, mut list_index : usize) -> Vec<i32> {
         resultlist.append(&mut remaining);
     }
     resultlist
-     
 }
     // Imma write it out in comments first, then write the code
     // I need to use recursion to call the function but also speciffy the index that I am currently on in the integer list
