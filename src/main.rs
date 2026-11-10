@@ -1,5 +1,3 @@
-use std::ptr::null;
-
 fn main() {
     println!("Hello, world!");
     let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -33,11 +31,6 @@ fn main() {
 fn everyother(list1: Vec<i32>, mut list_index : usize) -> Vec<i32> {
     let mut resultlist : Vec<i32> = Vec::new();
 
-    // // if result list is empty
-    // if resultlist.is_empty(){
-    //     // set index to 1
-    //     list_index = 1;
-    // }
     if list1.is_empty(){
         println!("Error: the input list is empty");
         return resultlist;
@@ -46,34 +39,27 @@ fn everyother(list1: Vec<i32>, mut list_index : usize) -> Vec<i32> {
         print!("The list is the same because there is only one element.");
         return  list1;
     }
-    if list_index < list1.len(){
-        resultlist.push(list1[list_index]);
-        list_index += 2;
+    if list_index < list1.len(){ // if index < intlist.length && index%2==1)
+        resultlist.push(list1[list_index]); // add element at that index to result list
+        list_index += 2; // increment the index by 2 - bc it's every other
         
+        // Use recursion to call the function but also speciffy the index that I am currently on in the integer list
+
         let mut remaining = everyother(list1, list_index);
         resultlist.append(&mut remaining);
     }
     resultlist
 }
-    // Imma write it out in comments first, then write the code
-    // I need to use recursion to call the function but also speciffy the index that I am currently on in the integer list
     // should have it all the everyother function after incrementing the index by 2
     // checks if the index is still less than the original list to keep going through
     // also a check to make sure the list has atleast 2 elements
     // returns empty list if 0 elements
     // returns list that has just 1 element
-    // other do normal everyother functionality
-    // if index < intlist.length && index%2==1)
-        // add element at that index to result list
-        // increment the index
+    // otherwise do normal everyother functionality
         // return the list while also calling back the function with the current index
 
-// Goldbach's Conjecture
-// - Create functions in SML and Rust named goldbach that takes an integer n as a
-// parameter and prints the solution satifying Goldbach conjecture.
-// The conjecture states that every positive even integer greater than 2 can be expressed as the sum of two primes.
-// Your function is to find the two primes that sum to n and print them in the form of "p1 + p2 = n" where p1 and p2 are the two primes that sum to n.
-// - You should provide error checking to make sure the integer parameter is a positive even integer greater than 2. If it is not, print an error message and return.
+        // SML version
+        // sosml.org/share/f2385ccbe46d1be7dcb2571330228e349625a0e1cc5b09a639c79b295bdbfffc
 
 //              Part 2 - Binary Addition / Subtraction
 // Use recursion
