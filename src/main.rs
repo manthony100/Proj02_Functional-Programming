@@ -63,6 +63,39 @@ fn everyother(list1: Vec<i32>, mut list_index : usize) -> Vec<i32> {
 
 //              Part 2 - Binary Addition / Subtraction
 // Use recursion
+// Develop Rust Function to perform Binary addition given two lists of binary integers (1s and 0s)
+// Adds topNum, bottomNum, carryNum
+// Helper function to turn 1s and 0s to trues and false
+// 1 and 1 = 0 AND carryNum = 1
+// 0 and 0 = 0 AND carryNum = 0
+// 1 and 0 = 1 AND carryNum = 0
+
+// 1, 1, 1 -> 1 and carry 1
+// 1, 1, 0 -> 0 and carry 1
+
+// 0, 0, 1 -> 1
+// 0, 0, 0 -> 0 
+
+// 1, 0, 1 -> 0 and carry 1
+// 1, 0, 0 -> 1 and carry 0
+
+
+// Start and Go From Right to Left
+// Get the length of longest list of binary integers
+// Repeat for that length plus 1
+// Add the main two numbers and carry
+    // Determine the Result Number
+    // Add the Result Number to the result list
+    // Incre/Decre the index
+    // Determine the New Carry Amount
+
+    // let variable called remaing work as the recursive call
+        // 
+    // append the remaining to the result list
+
+// return the resultlist
+// Reverse the order of the result list - currently right to left
+// 
 // 
 //              Part 3 - Language Math Translation
 //
