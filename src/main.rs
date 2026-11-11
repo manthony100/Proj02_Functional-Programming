@@ -3,7 +3,7 @@ fn main() {
     // let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     // let numbers2 = vec![1, 2, 3, 4];
     let numbers3 = vec![1, 0, 1];
-    let numbers4 = vec![0, 1, 0];
+    let numbers4 = vec![0, 1, 1];
 
 
     // println!("{:?}", everyother(numbers, 1));
@@ -13,7 +13,7 @@ fn main() {
 
     println!("Testing Binary Addition:");
     // binaryaddition(numbers3, numbers4, 0, 0);
-    println!("{:?}",binaryaddition(numbers3, numbers4, 0, 0));
+    println!("{:?}",binaryaddition(binaryaddition_before_reversal(numbers3, numbers4, 0, 0), 0));
 
 }
 // Im typing out all parts of the project even if the code for the scheme is not in vscode.
@@ -82,7 +82,7 @@ fn everyother(list1: Vec<i32>, mut list_index : usize) -> Vec<i32> {
 
 // 1, 0, 1 -> 0 and carry 1
 // 1, 0, 0 -> 1 and carry 0
-fn binaryaddition (bi_nums1 : Vec<i32>, bi_nums2 : Vec<i32>, mut carry_bit : i32,mut num_traversed : usize) -> Vec<i32> {
+fn binaryaddition_before_reversal (bi_nums1 : Vec<i32>, bi_nums2 : Vec<i32>, mut carry_bit : i32,mut num_traversed : usize) -> Vec<i32> {
         let list_length = if bi_nums1.len() > bi_nums2.len(){
         bi_nums1.len()
     } else {
@@ -142,7 +142,7 @@ fn binaryaddition (bi_nums1 : Vec<i32>, bi_nums2 : Vec<i32>, mut carry_bit : i32
 
     sumlist.push(sum_digit);
 
-    let mut remaining = binaryaddition(bi_nums1, bi_nums2, carry_bit, num_traversed);
+    let mut remaining = binaryaddition_before_reversal(bi_nums1, bi_nums2, carry_bit, num_traversed);
     sumlist.append(&mut remaining);
     //     resultlist.push(list1[list_index]); // add element at that index to result list
     //     list_index += 2; // increment the index by 2 - bc it's every other
@@ -156,6 +156,30 @@ fn binaryaddition (bi_nums1 : Vec<i32>, bi_nums2 : Vec<i32>, mut carry_bit : i32
     
 
     sumlist
+}
+
+fn binaryaddition(reversedlist : Vec<i32>, mut traversed: usize) -> Vec<i32> {
+    let mut normallist : Vec<i32> = Vec::new();
+    let num_elements = reversedlist.len();
+    // Base Case
+        // Have I gone through every item in the list
+    if traversed < reversedlist.len(){
+        //         resultlist.push(list1[list_index]); // add element at that index to result list
+        // list_index += 2; // increment the index by 2 - bc it's every other
+        
+        // // Use recursion to call the function but also speciffy the index that I am currently on in the integer list
+
+        // let mut remaining = everyother(list1, list_index);
+        // resultlist.append(&mut remaining);
+        normallist.push(reversedlist[num_elements-(traversed+1)]);
+        traversed+=1;
+        let mut remaining = binaryaddition(reversedlist, traversed);
+        normallist.append(&mut remaining);
+    }
+    
+    // return the normal order list
+    normallist
+
 }
 
 // Start and Go From Right to Left
