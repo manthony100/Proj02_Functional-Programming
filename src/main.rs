@@ -1,17 +1,19 @@
 fn main() {
     println!("Hello, world!");
-    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-    let numbers2 = vec![1, 2, 3, 4];
+    // let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    // let numbers2 = vec![1, 2, 3, 4];
     let numbers3 = vec![1, 0, 1];
     let numbers4 = vec![0, 1, 0];
 
 
-    println!("{:?}", everyother(numbers, 1));
-    println!("{:?}", everyother(numbers2, 1));
-    println!("{:?}", everyother(numbers3, 1));
-    println!("{:?}", everyother(numbers4, 1));
+    // println!("{:?}", everyother(numbers, 1));
+    // println!("{:?}", everyother(numbers2, 1));
+    // println!("{:?}", everyother(numbers3, 1));
+    // println!("{:?}", everyother(numbers4, 1));
 
-    // binaryaddition(numbers3, numbers4, 0, 0)
+    println!("Testing Binary Addition:");
+    // binaryaddition(numbers3, numbers4, 0, 0);
+    println!("{:?}",binaryaddition(numbers3, numbers4, 0, 0));
 
 }
 // Im typing out all parts of the project even if the code for the scheme is not in vscode.
@@ -81,16 +83,40 @@ fn everyother(list1: Vec<i32>, mut list_index : usize) -> Vec<i32> {
 // 1, 0, 1 -> 0 and carry 1
 // 1, 0, 0 -> 1 and carry 0
 fn binaryaddition (bi_nums1 : Vec<i32>, bi_nums2 : Vec<i32>, mut carry_bit : i32,mut num_traversed : usize) -> Vec<i32> {
-    // Base Case
-    let num1 = bi_nums1[bi_nums1.len()-(1+num_traversed)];
-    let num2 = bi_nums2[bi_nums2.len()-(1+num_traversed)];
+        let list_length = if bi_nums1.len() > bi_nums2.len(){
+        bi_nums1.len()
+    } else {
+        bi_nums2.len()
+    };
+        // Base Case
+    // Have I processed all the columns in both lists?
+    if num_traversed >= list_length{ // if traversed through longest list
+        if carry_bit == 0{ // Return an empty list if there is no carry
+            return vec![];
+        }else { // Return a list containing one if there is a remaining carry
+            return vec![1];
+        }
+    }
+    // set to zero at default in case one list is longer than the other
+    let mut num1:i32 = 0;
+    let mut num2:i32 = 0;
+
+    // for each list
+        // if num_traversed is less than its length -> read its bit
+        // else: use zero without calculating an index
+    if num_traversed < bi_nums1.len(){
+        num1 = bi_nums1[bi_nums1.len()-(1+num_traversed)];
+    }
+    if num_traversed < bi_nums2.len(){
+        num2 = bi_nums2[bi_nums2.len()-(1+num_traversed)];
+    }
     let column_total = num1 + num2 + carry_bit;
 
     let mut sumlist : Vec<i32> = Vec::new();
     let sum_digit : i32;
 
     match column_total {
-        0 => {carry_bit=0;
+        0 => {carry_bit=0; // 0 + 0 + 0 --> 0 in result
             sum_digit=0;
         },
         1 => {carry_bit=0;
@@ -102,16 +128,31 @@ fn binaryaddition (bi_nums1 : Vec<i32>, bi_nums2 : Vec<i32>, mut carry_bit : i32
         3 => {carry_bit=1;
             sum_digit=1;
         },
-        _ => println!("The input lists are either of the wrong type or are not lists consisting of just binary integers.")
+        _ => {println!("The input lists are either of the wrong type or are not lists consisting of just binary integers.");
+                return sumlist;
+
+        },
     }
+    // Increment number of bits traversed
+    num_traversed+=1;
 
-    let list_length = if bi_nums1.len() > bi_nums2.len(){
-        bi_nums1.len()
-    } else {
-        bi_nums2.len()
-    };
+    // Recursive Call
 
+    // Combine the recursive call result with the current digit
 
+    sumlist.push(sum_digit);
+
+    let mut remaining = binaryaddition(bi_nums1, bi_nums2, carry_bit, num_traversed);
+    sumlist.append(&mut remaining);
+    //     resultlist.push(list1[list_index]); // add element at that index to result list
+    //     list_index += 2; // increment the index by 2 - bc it's every other
+        
+    //     // Use recursion to call the function but also speciffy the index that I am currently on in the integer list
+
+    //     let mut remaining = everyother(list1, list_index);
+    //     resultlist.append(&mut remaining);
+    // }
+    // resultlist
     
 
     sumlist
