@@ -2,14 +2,16 @@ fn main() {
     println!("Hello, world!");
     let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     let numbers2 = vec![1, 2, 3, 4];
-    let numbers3 = vec![1];
-    let numbers4 = vec![0; 5];
+    let numbers3 = vec![1, 0, 1];
+    let numbers4 = vec![0, 1, 0];
 
 
     println!("{:?}", everyother(numbers, 1));
     println!("{:?}", everyother(numbers2, 1));
     println!("{:?}", everyother(numbers3, 1));
     println!("{:?}", everyother(numbers4, 1));
+
+    // binaryaddition(numbers3, numbers4, 0, 0)
 
 }
 // Im typing out all parts of the project even if the code for the scheme is not in vscode.
@@ -78,7 +80,42 @@ fn everyother(list1: Vec<i32>, mut list_index : usize) -> Vec<i32> {
 
 // 1, 0, 1 -> 0 and carry 1
 // 1, 0, 0 -> 1 and carry 0
+fn binaryaddition (bi_nums1 : Vec<i32>, bi_nums2 : Vec<i32>, mut carry_bit : i32,mut num_traversed : usize) -> Vec<i32> {
+    // Base Case
+    let num1 = bi_nums1[bi_nums1.len()-(1+num_traversed)];
+    let num2 = bi_nums2[bi_nums2.len()-(1+num_traversed)];
+    let column_total = num1 + num2 + carry_bit;
 
+    let mut sumlist : Vec<i32> = Vec::new();
+    let sum_digit : i32;
+
+    match column_total {
+        0 => {carry_bit=0;
+            sum_digit=0;
+        },
+        1 => {carry_bit=0;
+            sum_digit=1;
+        },
+        2 => {carry_bit=1;
+            sum_digit=0;
+        },
+        3 => {carry_bit=1;
+            sum_digit=1;
+        },
+        _ => println!("The input lists are either of the wrong type or are not lists consisting of just binary integers.")
+    }
+
+    let list_length = if bi_nums1.len() > bi_nums2.len(){
+        bi_nums1.len()
+    } else {
+        bi_nums2.len()
+    };
+
+
+    
+
+    sumlist
+}
 
 // Start and Go From Right to Left
 // Get the length of longest list of binary integers
