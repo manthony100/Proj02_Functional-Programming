@@ -200,7 +200,18 @@ fn binaryaddition(reversedlist : Vec<i32>, mut traversed: usize) -> Vec<i32> {
 // 
 // 
 //              Part 3 - Language Math Translation
-//
+// 
+// Takes a list of strings
+
+// Base Case
+// Uses the chinese and english lists to find number equivalent
+    // Add number equivalent to listaqrw
+// If not an english or chinese number between 0 and 10 (inclusive)
+    // Disregard and go to next item in list
+// 
+// 
+// 
+// 
 //              Part 4 - Scheme Preparation 
 //              Part 5 - Math Translation in Scheme
 //              Part 6 - Function Programming Reflection
