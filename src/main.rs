@@ -5,6 +5,11 @@ fn main() {
     let numbers3 = vec![1, 0, 1];
     let numbers4 = vec![0, 1, 1];
 
+// (define chinese ‘(ling yi er san si wu liu qi ba jiu shi))
+// (define english ‘(zero one two three four five six seven eight nine ten))
+    let words: Vec<String> = vec!["yi", "two", "san", "hello"]
+    .into_iter().map(String::from).collect();
+    language_math_translation(&words, 0, 0, 1);
 
     // println!("{:?}", everyother(numbers, 1));
     // println!("{:?}", everyother(numbers2, 1));
@@ -14,7 +19,6 @@ fn main() {
     println!("Testing Binary Addition:");
     // binaryaddition(numbers3, numbers4, 0, 0);
     println!("{:?}",binaryaddition(binaryaddition_before_reversal(numbers3, numbers4, 0, 0), 0));
-
 }
 // Im typing out all parts of the project even if the code for the scheme is not in vscode.
 // Just so I can keep track of what I have done and what I need to do.
@@ -191,7 +195,7 @@ fn binaryaddition(reversedlist : Vec<i32>, mut traversed: usize) -> Vec<i32> {
     // Incre/Decre the index
     // Determine the New Carry Amount
 
-    // let variable called remaing work as the recursive call
+    // let variable called remaining work as the recursive call
         // 
     // append the remaining to the result list
 
@@ -200,19 +204,57 @@ fn binaryaddition(reversedlist : Vec<i32>, mut traversed: usize) -> Vec<i32> {
 // 
 // 
 //              Part 3 - Language Math Translation
-// 
-// Takes a list of strings
+fn lookup(word: &str, index: usize, chinese: &Vec<&str>, english: &Vec<&str>) -> Option<i32> {
+    if index >= chinese.len() {
+        None
+    } else if word == chinese[index] || word == english[index] {
+        Some(index as i32)
+    } else {
+        lookup(word, index + 1, chinese, english)
+    }
+}
 
+fn language_math_translation(words: &Vec<String>, index: usize, add: i32, mult: i32) {
+    let chinese: Vec<&str> = vec![
+        "ling", "yi", "er", "san", "si", "wu", "liu", "qi", "ba", "jiu", "shi",
+    ];
+    let english: Vec<&str> = vec![
+        "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+    ];
+
+    if index >= words.len() {
+        println!("Addition result: {}", add);
+        println!("Multiplication result: {}", mult);
+        return;
+    }
+
+    match lookup(&words[index], 0, &chinese, &english) {
+        Some(n) => language_math_translation(words, index + 1, add + n, mult * n),
+        None => language_math_translation(words, index + 1, add, mult),
+    }
+}
+// let chinese: Vec<&str> = vec![
+// "ling", "yi", "er", "san", "si", "wu", "liu", "qi", "ba", "jiu", "shi",
+// ];
+// let english: Vec<&str> = vec![
+// "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+// ];
+
+// Takes a list of strings
 // Base Case
+// For each element in the list of strings
 // Uses the chinese and english lists to find number equivalent
-    // Add number equivalent to listaqrw
+    // Add number equivalent to list
+    // AdditionResult += number_equivalent
+    // MultiplicationResult *= number_equivalent
 // If not an english or chinese number between 0 and 10 (inclusive)
     // Disregard and go to next item in list
-// 
-// 
-// 
+
 // 
 //              Part 4 - Scheme Preparation 
+
 //              Part 5 - Math Translation in Scheme
+//
 //              Part 6 - Function Programming Reflection
+// should take like 10 minutes if anything
 //              Part 7 - Extra Credit - Drunk Homer
